@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'antd/dist/antd.css';
 
 import { Layout } from 'antd';
-import { Navbar } from './';
+import { Navbar, Login } from './';
 
 class App extends Component {
   render() {
@@ -10,6 +10,7 @@ class App extends Component {
       <div className="App">
         <Layout>
           <Navbar />
+          <Login />
         </Layout>
       </div>
     );
