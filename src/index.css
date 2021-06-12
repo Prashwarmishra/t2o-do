@@ -11,6 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+/*antd*/
+
+.ant-layout {
+  height: 100vh;
+}
+
+.ant-menu {
+  line-height: 50px !important;
+}
 
 /*Navbar*/
 .header {
@@ -28,9 +37,7 @@ code {
   line-height: 0;
   /* height: 50px !important; */
 }
-.ant-menu {
-  line-height: 50px !important;
-}
+
 .logo h2 {
   color: #fafafa;
   font-size: 2.5em;

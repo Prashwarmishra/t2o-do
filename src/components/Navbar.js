@@ -1,5 +1,6 @@
 import { Layout, Menu } from 'antd';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 const { Header } = Layout;
 
@@ -12,10 +13,14 @@ class Navbar extends Component {
           className="header"
         >
           <div className="logo">
-            <h2>Todo</h2>
+            <Link to="/">
+              <h2>Todo</h2>
+            </Link>
           </div>
           <Menu theme="dark" mode="horizontal">
-            <Menu.Item key="1">Login</Menu.Item>
+            <Menu.Item key="1">
+              <Link to="/login">Login</Link>
+            </Menu.Item>
             <Menu.Item key="2">Sign Up</Menu.Item>
           </Menu>
         </Header>
