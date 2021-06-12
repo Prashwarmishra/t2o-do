@@ -18,7 +18,7 @@ const tailLayout = {
 
 const { Content } = Layout;
 
-class Login extends Component {
+class Signup extends Component {
   render() {
     return (
       <div>
@@ -37,6 +37,18 @@ class Login extends Component {
                 remember: true,
               }}
             >
+              <Form.Item
+                label="Name"
+                name="name"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your name!',
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
               <Form.Item
                 label="Email"
                 name="email"
@@ -64,6 +76,19 @@ class Login extends Component {
               </Form.Item>
 
               <Form.Item
+                label="Confirm Password"
+                name="confirm-password"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please confirm your password!',
+                  },
+                ]}
+              >
+                <Input.Password />
+              </Form.Item>
+
+              <Form.Item
                 {...tailLayout}
                 name="remember"
                 valuePropName="checked"
@@ -84,4 +109,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Signup;

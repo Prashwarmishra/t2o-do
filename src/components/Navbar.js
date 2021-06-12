@@ -21,7 +21,9 @@ class Navbar extends Component {
             <Menu.Item key="1">
               <Link to="/login">Login</Link>
             </Menu.Item>
-            <Menu.Item key="2">Sign Up</Menu.Item>
+            <Menu.Item key="2">
+              <Link to="/signup">Sign Up</Link>
+            </Menu.Item>
           </Menu>
         </Header>
       </div>
