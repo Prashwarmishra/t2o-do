@@ -61,7 +61,7 @@ class Signup extends Component {
   };
 
   render() {
-    const { success, error } = this.props.auth;
+    const { success, error, inProgress } = this.props.auth;
     const { name, email, password, confirmPassword } = this.state;
     return (
       <div>
@@ -154,19 +154,25 @@ class Signup extends Component {
               <Form.Item
                 {...tailLayout}
                 name="remember"
-                valuePropName="checked"
+                valuePropName="unchecked"
               >
-                <Checkbox>Remember me</Checkbox>
+                <Checkbox>Agree to terms and conditions</Checkbox>
               </Form.Item>
 
               <Form.Item {...tailLayout}>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  onClick={this.handleSubmit}
-                >
-                  Submit
-                </Button>
+                {inProgress ? (
+                  <Button type="primary" htmlType="submit">
+                    Signing Up...
+                  </Button>
+                ) : (
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    onClick={this.handleSubmit}
+                  >
+                    Sign Up
+                  </Button>
+                )}
               </Form.Item>
             </Form>
           </div>

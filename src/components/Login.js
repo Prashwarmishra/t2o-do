@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Layout } from 'antd';
+import { Alert } from 'antd';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { connect } from 'react-redux';
-import { userLogin } from '../actions/auth';
+import { Redirect } from 'react-router';
+
+import { authenticateUser, userLogin } from '../actions/auth';
 
 const layout = {
   labelCol: {
@@ -30,6 +33,10 @@ class Login extends Component {
     };
   }
 
+  componentWillUnmount() {
+    this.props.dispatch(authenticateUser());
+  }
+
   handleChange = (key, value) => {
     this.setState({
       [key]: value,
@@ -44,6 +51,10 @@ class Login extends Component {
   };
 
   render() {
+    const { isLoggedin, error, inProgress } = this.props.auth;
+    if (isLoggedin) {
+      return <Redirect to="/" />;
+    }
     return (
       <div>
         <Content className="site-layout" style={{ padding: '150px 50px' }}>
@@ -55,6 +66,7 @@ class Login extends Component {
                 remember: true,
               }}
             >
+              {error && <Alert message={error} type="error" showIcon />}
               <Form.Item
                 label="Email"
                 name="email"
@@ -96,13 +108,19 @@ class Login extends Component {
               </Form.Item>
 
               <Form.Item {...tailLayout}>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  onClick={this.handleSubmit}
-                >
-                  Submit
-                </Button>
+                {inProgress ? (
+                  <Button type="primary" htmlType="submit">
+                    Logging In...
+                  </Button>
+                ) : (
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    onClick={this.handleSubmit}
+                  >
+                    Log In
+                  </Button>
+                )}
               </Form.Item>
             </Form>
           </div>
@@ -112,4 +130,10 @@ class Login extends Component {
   }
 }
 
-export default connect()(Login);
+function mapStateToProps(state) {
+  return {
+    auth: state.auth,
+  };
+}
+
+export default connect(mapStateToProps)(Login);
