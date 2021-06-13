@@ -18,3 +18,7 @@ export function getFormBody(params) {
 export function setAuthTokenInLocalStorage(token) {
   localStorage.setItem('token', token);
 }
+
+export function getAuthTokenFromLocalStorage() {
+  return localStorage.getItem('token');
+}

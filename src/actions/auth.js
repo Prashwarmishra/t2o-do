@@ -4,7 +4,12 @@ import {
   getHeaders,
   setAuthTokenInLocalStorage,
 } from '../helpers/utils';
-import { LOGIN_FAILURE, LOGIN_START, LOGIN_SUCCESS } from './actionTypes';
+import {
+  AUTHENTICATE_USER,
+  LOGIN_FAILURE,
+  LOGIN_START,
+  LOGIN_SUCCESS,
+} from './actionTypes';
 
 export function loginStart() {
   return {
@@ -44,5 +49,12 @@ export function userLogin(email, password) {
         }
         return dispatch(loginFailure(data.message));
       });
+  };
+}
+
+export function authenticateUser(user) {
+  return {
+    type: AUTHENTICATE_USER,
+    user,
   };
 }
