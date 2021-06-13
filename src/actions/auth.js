@@ -4,11 +4,13 @@ import {
   getHeaders,
   setAuthTokenInLocalStorage,
 } from '../helpers/utils';
+
 import {
   AUTHENTICATE_USER,
   LOGIN_FAILURE,
   LOGIN_START,
   LOGIN_SUCCESS,
+  LOG_OUT,
   SIGNUP_FAILURE,
   SIGNUP_START,
   SIGNUP_SUCCESS,
@@ -104,5 +106,11 @@ export function authenticateUser(user) {
   return {
     type: AUTHENTICATE_USER,
     user,
+  };
+}
+
+export function logOut() {
+  return {
+    type: LOG_OUT,
   };
 }

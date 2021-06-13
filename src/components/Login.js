@@ -34,7 +34,7 @@ class Login extends Component {
   }
 
   componentWillUnmount() {
-    this.props.dispatch(authenticateUser());
+    this.props.dispatch(authenticateUser(this.props.auth.user));
   }
 
   handleChange = (key, value) => {
