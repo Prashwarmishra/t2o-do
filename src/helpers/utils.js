@@ -4,6 +4,13 @@ export function getHeaders() {
   };
 }
 
+export function getHeadersWithAuthToken() {
+  return {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
+  };
+}
+
 export function getFormBody(params) {
   let formBody = [];
   for (let property in params) {

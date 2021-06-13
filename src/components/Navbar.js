@@ -8,7 +8,6 @@ const { Header } = Layout;
 
 class Navbar extends Component {
   handleSignout = () => {
-    console.log('triggered');
     localStorage.removeItem('token');
     this.props.dispatch(logOut());
   };

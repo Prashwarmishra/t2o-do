@@ -11,3 +11,6 @@ export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 //authenticate
 export const AUTHENTICATE_USER = 'AUTHENTICATE_USER';
 export const LOG_OUT = 'LOG_OUT';
+
+//fetch todo
+export const GET_TODOS = 'GET_TODOS';
