@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Layout } from 'antd';
 import { Form, Input, Button, Checkbox } from 'antd';
+import { Alert } from 'antd';
+
+import { authenticateUser, userSignup } from '../actions/auth';
 const layout = {
   labelCol: {
     span: 8,
@@ -19,13 +23,49 @@ const tailLayout = {
 const { Content } = Layout;
 
 class Signup extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    };
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(authenticateUser());
+  }
+
+  handleChange = (key, value) => {
+    this.setState({
+      [key]: value,
+    });
+  };
+
+  handleSubmit = () => {
+    console.log('signup info', this.state);
+
+    const { name, email, password, confirmPassword } = this.state;
+    if (name && email && password && confirmPassword) {
+      this.props.dispatch(userSignup(name, email, password, confirmPassword));
+      this.setState({
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      });
+    } else {
+      console.log('Please put all values');
+    }
+  };
+
   render() {
+    const { success, error } = this.props.auth;
+    const { name, email, password, confirmPassword } = this.state;
     return (
       <div>
-        <Content
-          className="site-layout"
-          style={{ padding: '150px 50px', height: '100vh' }}
-        >
+        <Content className="site-layout" style={{ padding: '150px 50px' }}>
           <div
             className="site-layout-background"
             // style={{ padding: 24, minHeight: 380 }}
@@ -37,6 +77,12 @@ class Signup extends Component {
                 remember: true,
               }}
             >
+              {success ? (
+                <Alert message={success} type="success" showIcon />
+              ) : error ? (
+                <Alert message={error} type="error" showIcon />
+              ) : null}
+
               <Form.Item
                 label="Name"
                 name="name"
@@ -47,8 +93,12 @@ class Signup extends Component {
                   },
                 ]}
               >
-                <Input />
+                <Input
+                  onChange={(e) => this.handleChange('name', e.target.value)}
+                  value={name}
+                />
               </Form.Item>
+
               <Form.Item
                 label="Email"
                 name="email"
@@ -59,7 +109,10 @@ class Signup extends Component {
                   },
                 ]}
               >
-                <Input />
+                <Input
+                  onChange={(e) => this.handleChange('email', e.target.value)}
+                  value={email}
+                />
               </Form.Item>
 
               <Form.Item
@@ -72,7 +125,12 @@ class Signup extends Component {
                   },
                 ]}
               >
-                <Input.Password />
+                <Input.Password
+                  onChange={(e) =>
+                    this.handleChange('password', e.target.value)
+                  }
+                  value={password}
+                />
               </Form.Item>
 
               <Form.Item
@@ -85,7 +143,12 @@ class Signup extends Component {
                   },
                 ]}
               >
-                <Input.Password />
+                <Input.Password
+                  onChange={(e) =>
+                    this.handleChange('confirmPassword', e.target.value)
+                  }
+                  value={confirmPassword}
+                />
               </Form.Item>
 
               <Form.Item
@@ -97,7 +160,11 @@ class Signup extends Component {
               </Form.Item>
 
               <Form.Item {...tailLayout}>
-                <Button type="primary" htmlType="submit">
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  onClick={this.handleSubmit}
+                >
                   Submit
                 </Button>
               </Form.Item>
@@ -109,4 +176,10 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+function mapStateToProps(state) {
+  return {
+    auth: state.auth,
+  };
+}
+
+export default connect(mapStateToProps)(Signup);

@@ -21,6 +21,11 @@ code {
   line-height: 50px !important;
 }
 
+.ant-alert {
+  margin: 30px auto !important;
+  width: 360px;
+}
+
 /*Navbar*/
 .header {
   position: fixed;

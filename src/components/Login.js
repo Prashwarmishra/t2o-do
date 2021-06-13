@@ -46,10 +46,7 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <Content
-          className="site-layout"
-          style={{ padding: '150px 50px', height: '100vh' }}
-        >
+        <Content className="site-layout" style={{ padding: '150px 50px' }}>
           <div className="site-layout-background">
             <Form
               {...layout}

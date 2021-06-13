@@ -50,7 +50,8 @@ export default function auth(state = initialAuthState, action) {
       return {
         ...state,
         user: action.user,
-        error: {},
+        error: null,
+        success: null,
       };
     default:
       return state;
