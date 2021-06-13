@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Layout } from 'antd';
 import { Form, Input, Button, Checkbox } from 'antd';
+import { connect } from 'react-redux';
+import { userLogin } from '../actions/auth';
+
 const layout = {
   labelCol: {
     span: 8,
@@ -19,6 +22,27 @@ const tailLayout = {
 const { Content } = Layout;
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
+
+  handleChange = (key, value) => {
+    this.setState({
+      [key]: value,
+    });
+  };
+
+  handleSubmit = () => {
+    const { email, password } = this.state;
+    if (email && password) {
+      this.props.dispatch(userLogin(email, password));
+    }
+  };
+
   render() {
     return (
       <div>
@@ -26,10 +50,7 @@ class Login extends Component {
           className="site-layout"
           style={{ padding: '150px 50px', height: '100vh' }}
         >
-          <div
-            className="site-layout-background"
-            // style={{ padding: 24, minHeight: 380 }}
-          >
+          <div className="site-layout-background">
             <Form
               {...layout}
               name="basic"
@@ -47,7 +68,9 @@ class Login extends Component {
                   },
                 ]}
               >
-                <Input />
+                <Input
+                  onChange={(e) => this.handleChange('email', e.target.value)}
+                />
               </Form.Item>
 
               <Form.Item
@@ -60,7 +83,11 @@ class Login extends Component {
                   },
                 ]}
               >
-                <Input.Password />
+                <Input.Password
+                  onChange={(e) =>
+                    this.handleChange('password', e.target.value)
+                  }
+                />
               </Form.Item>
 
               <Form.Item
@@ -72,7 +99,11 @@ class Login extends Component {
               </Form.Item>
 
               <Form.Item {...tailLayout}>
-                <Button type="primary" htmlType="submit">
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  onClick={this.handleSubmit}
+                >
                   Submit
                 </Button>
               </Form.Item>
@@ -84,4 +115,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default connect()(Login);
