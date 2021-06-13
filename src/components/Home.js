@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchTodos } from '../actions/todos';
 
+import { TodoList } from './';
 import '../home.css';
 
 class Home extends Component {
   componentDidMount() {
     this.props.dispatch(fetchTodos());
-    console.log('/////////', this.props.auth.isLoggedin);
   }
 
   render() {
-    const { isLoggedin } = this.props.auth;
+    const { auth, todos } = this.props;
+    const { isLoggedin } = auth;
     return (
       <div className="home">
         {isLoggedin ? (
@@ -49,66 +50,7 @@ class Home extends Component {
               </div>
 
               <hr />
-
-              <ul id="todo-list">
-                <div className="todo">
-                  <input
-                    type="checkbox"
-                    name="todo-checkbox"
-                    className="todo-checkbox"
-                  />
-                  <li className="todo-task">
-                    <div>
-                      <div className="todo-task-name">Buy dozen pens</div>
-                      <div className="todo-task-date">May, 28th</div>
-                    </div>
-                  </li>
-                  <button className="todo-delete-button">
-                    <span>
-                      <i className="fas fa-minus-circle"></i>
-                    </span>
-                  </button>
-                </div>
-
-                <div className="todo">
-                  <input
-                    type="checkbox"
-                    name="todo-checkbox"
-                    className="todo-checkbox"
-                  />
-                  <li className="todo-task">
-                    <div>
-                      <div className="todo-task-name">Buy dozen pens</div>
-                      <div className="todo-task-date">May, 28th</div>
-                    </div>
-                  </li>
-                  <button className="todo-delete-button">
-                    <span>
-                      <i className="fas fa-minus-circle"></i>
-                    </span>
-                  </button>
-                </div>
-
-                <div className="todo">
-                  <input
-                    type="checkbox"
-                    name="todo-checkbox"
-                    className="todo-checkbox"
-                  />
-                  <li className="todo-task">
-                    <div>
-                      <div className="todo-task-name">Buy dozen pens</div>
-                      <div className="todo-task-date">May, 28th</div>
-                    </div>
-                  </li>
-                  <button className="todo-delete-button">
-                    <span>
-                      <i className="fas fa-minus-circle"></i>
-                    </span>
-                  </button>
-                </div>
-              </ul>
-
+              <TodoList todos={todos.tasks} />
               <hr />
 
               <div className="todo-controls">
