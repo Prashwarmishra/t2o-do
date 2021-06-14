@@ -4,6 +4,7 @@ import {
   COMPLETE_TODO,
   DELETE_TODO,
   GET_TODOS,
+  UNCOMPLETE_TODO,
   UPDATE_TODOS,
 } from './actionTypes';
 
@@ -83,6 +84,13 @@ export function deleteSelectedTodo(todoId) {
 export function completeTodo(todo) {
   return {
     type: COMPLETE_TODO,
+    todo,
+  };
+}
+
+export function uncompleteTodo(todo) {
+  return {
+    type: UNCOMPLETE_TODO,
     todo,
   };
 }

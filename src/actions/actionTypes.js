@@ -21,3 +21,4 @@ export const DELETE_TODO = 'DELETE_TODO';
 
 //buttons
 export const COMPLETE_TODO = 'COMPLETE_TODO';
+export const UNCOMPLETE_TODO = 'UNCOMPLETE_TODO';

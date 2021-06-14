@@ -2,6 +2,7 @@ import {
   COMPLETE_TODO,
   DELETE_TODO,
   GET_TODOS,
+  UNCOMPLETE_TODO,
   UPDATE_TODOS,
 } from '../actions/actionTypes';
 
@@ -34,6 +35,14 @@ export default function todos(state = initialTodoState, action) {
       return {
         ...state,
         completed: [action.todo, ...state.completed],
+      };
+    case UNCOMPLETE_TODO:
+      const newCompletedList = state.completed.filter(
+        (todo) => todo._id !== action.todo._id
+      );
+      return {
+        ...state,
+        completed: newCompletedList,
       };
     default:
       return state;
