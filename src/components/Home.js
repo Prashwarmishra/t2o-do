@@ -58,11 +58,14 @@ class Home extends Component {
 
   clearCompletedTasks = () => {
     const { completed } = this.props.todos;
-    // completed.map((todo) => {
-    //   console.log('count===', ++count);
-    //   return this.props.dispatch(deleteSelectedTodo(todo));
-    // });
     completed.forEach(async (todo) => {
+      await this.props.dispatch(deleteSelectedTodo(todo._id));
+    });
+  };
+
+  clearAllTasks = () => {
+    const { todosList } = this.props.todos;
+    todosList.forEach(async (todo) => {
       await this.props.dispatch(deleteSelectedTodo(todo._id));
     });
   };
@@ -109,7 +112,7 @@ class Home extends Component {
 
             <section id="todo-task-section">
               <div className="todo-controls">
-                <p id="complete-all-task">
+                <p id="complete-all-task" onClick={this.clearAllTasks}>
                   <span>
                     <i className="fas fa-check-double"></i>
                   </span>
