@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { deleteSelectedTodo } from '../actions/todos';
+import { completeTodo, deleteSelectedTodo } from '../actions/todos';
 
 class Todo extends Component {
   processDateStamp = (dateString) => {
@@ -13,11 +13,24 @@ class Todo extends Component {
     dispatch(deleteSelectedTodo(todo._id));
   };
 
+  handleCheckBox = (e) => {
+    const { dispatch, todo } = this.props;
+    console.log('checkbox----------------', e.target.checked);
+    if (e.target.checked) {
+      dispatch(completeTodo(todo));
+    }
+  };
+
   render() {
     const { todo } = this.props;
     return (
       <div className="todo">
-        <input type="checkbox" name="todo-checkbox" className="todo-checkbox" />
+        <input
+          type="checkbox"
+          name="todo-checkbox"
+          className="todo-checkbox"
+          onChange={this.handleCheckBox}
+        />
         <li className="todo-task">
           <div>
             <div className="todo-task-name">{todo.description}</div>

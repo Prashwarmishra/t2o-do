@@ -18,3 +18,6 @@ export const UPDATE_TODOS = 'UPDATE_TODOS';
 
 //delete todo
 export const DELETE_TODO = 'DELETE_TODO';
+
+//buttons
+export const COMPLETE_TODO = 'COMPLETE_TODO';

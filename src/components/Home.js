@@ -32,6 +32,7 @@ class Home extends Component {
 
   render() {
     const { auth, todos } = this.props;
+    const { todosList } = todos;
     const { isLoggedin } = auth;
     return (
       <div className="home">
@@ -82,7 +83,7 @@ class Home extends Component {
               </div>
 
               <hr />
-              <TodoList todos={todos} />
+              <TodoList todos={todosList} />
               <hr />
 
               <div className="todo-controls">

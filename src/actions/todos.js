@@ -1,6 +1,11 @@
 import { APIURLs } from '../helpers/urls';
 import { getFormBody, getHeadersWithAuthToken } from '../helpers/utils';
-import { DELETE_TODO, GET_TODOS, UPDATE_TODOS } from './actionTypes';
+import {
+  COMPLETE_TODO,
+  DELETE_TODO,
+  GET_TODOS,
+  UPDATE_TODOS,
+} from './actionTypes';
 
 export function getTodos(todos) {
   return {
@@ -72,5 +77,12 @@ export function deleteSelectedTodo(todoId) {
           dispatch(deleteTodo(todoId));
         }
       });
+  };
+}
+
+export function completeTodo(todo) {
+  return {
+    type: COMPLETE_TODO,
+    todo,
   };
 }
