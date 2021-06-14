@@ -1,14 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchTodos } from '../actions/todos';
+import { addTodo, fetchTodos } from '../actions/todos';
 
 import { TodoList } from './';
 import '../home.css';
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      description: '',
+      duuDate: '',
+    };
+  }
   componentDidMount() {
     this.props.dispatch(fetchTodos());
   }
+
+  handleChange = (fieldName, value) => {
+    this.setState({
+      [fieldName]: value,
+    });
+  };
+
+  handleAddTodo = () => {
+    const { description, dueDate } = this.state;
+    if (description && dueDate) {
+      this.props.dispatch(addTodo(description, dueDate));
+    }
+  };
 
   render() {
     const { auth, todos } = this.props;
@@ -23,11 +43,23 @@ class Home extends Component {
                   type="text"
                   id="todo-input"
                   placeholder="Add tasks here..."
+                  onChange={(e) =>
+                    this.handleChange('description', e.target.value)
+                  }
                   required
                 ></input>
-                <input type="date" />
+
+                <input
+                  type="date"
+                  onChange={(e) => this.handleChange('dueDate', e.target.value)}
+                  required
+                />
               </div>
-              <button type="submit" id="todo-submit-button">
+              <button
+                type="submit"
+                id="todo-submit-button"
+                onClick={this.handleAddTodo}
+              >
                 +
               </button>
             </section>
@@ -50,7 +82,7 @@ class Home extends Component {
               </div>
 
               <hr />
-              <TodoList todos={todos.tasks} />
+              <TodoList todos={todos} />
               <hr />
 
               <div className="todo-controls">

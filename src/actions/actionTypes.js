@@ -14,3 +14,4 @@ export const LOG_OUT = 'LOG_OUT';
 
 //fetch todo
 export const GET_TODOS = 'GET_TODOS';
+export const UPDATE_TODOS = 'UPDATE_TODOS';

@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 
 export default class Todo extends Component {
   processDateStamp = (dateString) => {
-    const year = dateString.substring(0, 4);
-    const month = dateString.substring(5, 7);
-    const date = dateString.substring(8, 10);
-    return `${date}-${month}-${year}`;
+    const date = dateString.substring(0, 15);
+    return date;
   };
 
   render() {

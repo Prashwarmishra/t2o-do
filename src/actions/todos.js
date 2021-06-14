@@ -1,6 +1,6 @@
 import { APIURLs } from '../helpers/urls';
-import { getHeadersWithAuthToken } from '../helpers/utils';
-import { GET_TODOS } from './actionTypes';
+import { getFormBody, getHeadersWithAuthToken } from '../helpers/utils';
+import { GET_TODOS, UPDATE_TODOS } from './actionTypes';
 
 export function getTodos(todos) {
   return {
@@ -21,6 +21,31 @@ export function fetchTodos() {
         console.log('Fetched data: ', data);
         if (data.success) {
           dispatch(getTodos(data.data.tasks));
+        }
+      });
+  };
+}
+
+export function updateTodo(todo) {
+  return {
+    type: UPDATE_TODOS,
+    todo,
+  };
+}
+
+export function addTodo(description, dueDate) {
+  return (dispatch) => {
+    const url = APIURLs.addTodo();
+    fetch(url, {
+      method: 'POST',
+      headers: getHeadersWithAuthToken(),
+      body: getFormBody({ description, dueDate }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.success) {
+          dispatch(updateTodo(data.data.task));
         }
       });
   };
