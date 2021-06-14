@@ -5,7 +5,7 @@ import { Form, Input, Button, Checkbox } from 'antd';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 
-import { authenticateUser, userLogin } from '../actions/auth';
+import { clearAuth, userLogin } from '../actions/auth';
 
 const layout = {
   labelCol: {
@@ -34,7 +34,7 @@ class Login extends Component {
   }
 
   componentWillUnmount() {
-    this.props.dispatch(authenticateUser(this.props.auth.user));
+    this.props.dispatch(this.props.dispatch(clearAuth()));
   }
 
   handleChange = (key, value) => {

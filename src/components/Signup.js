@@ -4,7 +4,7 @@ import { Layout } from 'antd';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { Alert } from 'antd';
 
-import { authenticateUser, userSignup } from '../actions/auth';
+import { clearAuth, userSignup } from '../actions/auth';
 const layout = {
   labelCol: {
     span: 8,
@@ -34,7 +34,7 @@ class Signup extends Component {
   }
 
   componentWillUnmount() {
-    this.props.dispatch(authenticateUser());
+    this.props.dispatch(clearAuth());
   }
 
   handleChange = (key, value) => {

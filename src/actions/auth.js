@@ -7,6 +7,7 @@ import {
 
 import {
   AUTHENTICATE_USER,
+  CLEAR_AUTH,
   LOGIN_FAILURE,
   LOGIN_START,
   LOGIN_SUCCESS,
@@ -112,5 +113,11 @@ export function authenticateUser(user) {
 export function logOut() {
   return {
     type: LOG_OUT,
+  };
+}
+
+export function clearAuth() {
+  return {
+    type: CLEAR_AUTH,
   };
 }

@@ -4,6 +4,7 @@ import { addTodo, deleteSelectedTodo, fetchTodos } from '../actions/todos';
 
 import { TodoList } from './';
 import '../home.css';
+import { getAuthTokenFromLocalStorage } from '../helpers/utils';
 
 class Home extends Component {
   constructor(props) {
@@ -15,7 +16,10 @@ class Home extends Component {
     };
   }
   componentDidMount() {
-    this.props.dispatch(fetchTodos());
+    const token = getAuthTokenFromLocalStorage();
+    if (token) {
+      this.props.dispatch(fetchTodos());
+    }
   }
 
   handleChange = (fieldName, value) => {

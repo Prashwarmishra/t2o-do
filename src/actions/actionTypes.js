@@ -22,3 +22,6 @@ export const DELETE_TODO = 'DELETE_TODO';
 //buttons
 export const COMPLETE_TODO = 'COMPLETE_TODO';
 export const UNCOMPLETE_TODO = 'UNCOMPLETE_TODO';
+
+//remove error and success dialogs
+export const CLEAR_AUTH = 'CLEAR_AUTH';
