@@ -1,6 +1,6 @@
 import { APIURLs } from '../helpers/urls';
 import { getFormBody, getHeadersWithAuthToken } from '../helpers/utils';
-import { GET_TODOS, UPDATE_TODOS } from './actionTypes';
+import { DELETE_TODO, GET_TODOS, UPDATE_TODOS } from './actionTypes';
 
 export function getTodos(todos) {
   return {
@@ -46,6 +46,30 @@ export function addTodo(description, dueDate) {
         console.log(data);
         if (data.success) {
           dispatch(updateTodo(data.data.task));
+        }
+      });
+  };
+}
+
+export function deleteTodo(todoId) {
+  return {
+    type: DELETE_TODO,
+    todoId,
+  };
+}
+
+export function deleteSelectedTodo(todoId) {
+  return (dispatch) => {
+    const url = APIURLs.deleteTodo(todoId);
+    fetch(url, {
+      method: 'DELETE',
+      headers: getHeadersWithAuthToken(),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.success) {
+          dispatch(deleteTodo(todoId));
         }
       });
   };

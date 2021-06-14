@@ -6,4 +6,5 @@ export const APIURLs = {
   userSignup: () => `${API_ROOT}/users/create`,
   getTodos: () => `${API_ROOT}/tasks/get-tasks`,
   addTodo: () => `${API_ROOT}/tasks/add-task`,
+  deleteTodo: (id) => `${API_ROOT}/tasks/delete-task/${id}`,
 };

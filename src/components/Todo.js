@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { deleteSelectedTodo } from '../actions/todos';
 
-export default class Todo extends Component {
+class Todo extends Component {
   processDateStamp = (dateString) => {
     const date = dateString.substring(0, 15);
     return date;
+  };
+
+  handleTodoDelete = () => {
+    const { dispatch, todo } = this.props;
+    dispatch(deleteSelectedTodo(todo._id));
   };
 
   render() {
@@ -19,7 +26,7 @@ export default class Todo extends Component {
             </div>
           </div>
         </li>
-        <button className="todo-delete-button">
+        <button className="todo-delete-button" onClick={this.handleTodoDelete}>
           <span>
             <i className="fas fa-minus-circle"></i>
           </span>
@@ -28,3 +35,5 @@ export default class Todo extends Component {
     );
   }
 }
+
+export default connect()(Todo);
