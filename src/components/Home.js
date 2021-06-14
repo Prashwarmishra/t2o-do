@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addTodo, fetchTodos } from '../actions/todos';
+import { addTodo, deleteSelectedTodo, fetchTodos } from '../actions/todos';
 
 import { TodoList } from './';
 import '../home.css';
@@ -56,12 +56,24 @@ class Home extends Component {
     }
   };
 
+  clearCompletedTasks = () => {
+    const { completed } = this.props.todos;
+    // completed.map((todo) => {
+    //   console.log('count===', ++count);
+    //   return this.props.dispatch(deleteSelectedTodo(todo));
+    // });
+    completed.forEach(async (todo) => {
+      await this.props.dispatch(deleteSelectedTodo(todo._id));
+    });
+  };
+
   render() {
-    console.log('update maadi');
     const { description, dueDate } = this.state;
     const { auth, todos } = this.props;
     const todosList = this.showSelectedTab();
     const { isLoggedin } = auth;
+    const tasksLeft = todos.todosList.length - todos.completed.length;
+
     return (
       <div className="home">
         {isLoggedin ? (
@@ -104,7 +116,7 @@ class Home extends Component {
                   <span>Complete all tasks</span>
                 </p>
 
-                <p id="clear-completed-task">
+                <p id="clear-completed-task" onClick={this.clearCompletedTasks}>
                   <span>
                     <i className="fas fa-broom"></i>
                   </span>
@@ -119,7 +131,7 @@ class Home extends Component {
               <div className="todo-controls">
                 <p id="tasks-left">
                   <span>
-                    <b>0</b>
+                    <b>{tasksLeft}</b>
                   </span>
                   <span>tasks left</span>
                 </p>

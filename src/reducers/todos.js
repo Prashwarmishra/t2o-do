@@ -27,8 +27,11 @@ export default function todos(state = initialTodoState, action) {
       const newList = state.todosList.filter(
         (todo) => todo._id !== action.todoId
       );
+      const completedList = state.completed.filter(
+        (todo) => todo._id !== action.todoId
+      );
       return {
-        ...state,
+        completed: completedList,
         todosList: newList,
       };
     case COMPLETE_TODO:
