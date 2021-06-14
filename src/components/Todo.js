@@ -8,8 +8,10 @@ import {
 
 class Todo extends Component {
   processDateStamp = (dateString) => {
-    const date = dateString.substring(0, 15);
-    return date;
+    const year = dateString.substring(0, 4);
+    const month = dateString.substring(5, 7);
+    const date = dateString.substring(8, 10);
+    return `${date}-${month}-${year}`;
   };
 
   handleTodoDelete = () => {
@@ -19,16 +21,15 @@ class Todo extends Component {
 
   handleCheckBox = (e) => {
     const { dispatch, todo } = this.props;
-    console.log('checkbox----------------', e.target.checked);
     if (e.target.checked) {
-      return dispatch(completeTodo(todo));
+      dispatch(completeTodo(todo));
+    } else {
+      dispatch(uncompleteTodo(todo));
     }
-    console.log('--------after');
-    return dispatch(uncompleteTodo(todo));
   };
 
   render() {
-    const { todo } = this.props;
+    const { todo, isChecked } = this.props;
     return (
       <div className="todo">
         <input
@@ -36,6 +37,7 @@ class Todo extends Component {
           name="todo-checkbox"
           className="todo-checkbox"
           onChange={this.handleCheckBox}
+          checked={isChecked}
         />
         <li className="todo-task">
           <div>

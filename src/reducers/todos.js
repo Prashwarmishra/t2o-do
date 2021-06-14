@@ -32,6 +32,9 @@ export default function todos(state = initialTodoState, action) {
         todosList: newList,
       };
     case COMPLETE_TODO:
+      if (state.completed.includes(action.todo)) {
+        return state;
+      }
       return {
         ...state,
         completed: [action.todo, ...state.completed],

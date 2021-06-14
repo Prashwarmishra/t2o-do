@@ -10,7 +10,8 @@ class Home extends Component {
     super(props);
     this.state = {
       description: '',
-      duuDate: '',
+      dueDate: '',
+      selectedTab: 'ALL',
     };
   }
   componentDidMount() {
@@ -23,16 +24,43 @@ class Home extends Component {
     });
   };
 
+  handleTabSelect = (tab) => {
+    this.setState({
+      selectedTab: tab,
+    });
+  };
+
+  showSelectedTab = () => {
+    const { selectedTab } = this.state;
+    const { todosList, completed } = this.props.todos;
+    if (selectedTab === 'COMPLETED') {
+      return completed;
+    } else if (selectedTab === 'UNCOMPLETE') {
+      const unCompletedList = todosList.filter(
+        (todo) => !completed.includes(todo)
+      );
+      return unCompletedList;
+    } else {
+      return todosList;
+    }
+  };
+
   handleAddTodo = () => {
     const { description, dueDate } = this.state;
     if (description && dueDate) {
       this.props.dispatch(addTodo(description, dueDate));
+      this.setState({
+        description: '',
+        dueDate: '',
+      });
     }
   };
 
   render() {
+    console.log('update maadi');
+    const { description, dueDate } = this.state;
     const { auth, todos } = this.props;
-    const { todosList } = todos;
+    const todosList = this.showSelectedTab();
     const { isLoggedin } = auth;
     return (
       <div className="home">
@@ -47,12 +75,14 @@ class Home extends Component {
                   onChange={(e) =>
                     this.handleChange('description', e.target.value)
                   }
+                  value={description}
                   required
                 ></input>
 
                 <input
                   type="date"
                   onChange={(e) => this.handleChange('dueDate', e.target.value)}
+                  value={dueDate}
                   required
                 />
               </div>
@@ -83,7 +113,7 @@ class Home extends Component {
               </div>
 
               <hr />
-              <TodoList todos={todosList} />
+              <TodoList todos={todosList} completed={todos.completed} />
               <hr />
 
               <div className="todo-controls">
@@ -94,15 +124,21 @@ class Home extends Component {
                   <span>tasks left</span>
                 </p>
 
-                <p id="all-tasks">
+                <p id="all-tasks" onClick={() => this.handleTabSelect('ALL')}>
                   <span>All</span>
                 </p>
 
-                <p id="uncompleted-tasks">
+                <p
+                  id="uncompleted-tasks"
+                  onClick={() => this.handleTabSelect('UNCOMPLETE')}
+                >
                   <span>Uncomplete</span>
                 </p>
 
-                <p id="completed-tasks">
+                <p
+                  id="completed-tasks"
+                  onClick={() => this.handleTabSelect('COMPLETED')}
+                >
                   <span>Completed</span>
                 </p>
               </div>
