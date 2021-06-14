@@ -23,7 +23,7 @@ class Navbar extends Component {
         >
           <div className="logo">
             <Link to="/">
-              <h2>Todo</h2>
+              <h2>t2o-do</h2>
             </Link>
           </div>
           {!isLoggedin ? (
